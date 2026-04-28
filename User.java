@@ -8,7 +8,7 @@ public class User {
         try{
             FileWriter fw = new FileWriter(file_path,true);
             int id = getlastid()+1;
-            fw.write(id + "," + name + "," + email + "," + password + "," + role + "\n");
+            fw.write(id + "," + name + "," + email + "," + password + "," + role + ",0\n");
             fw.close();
             System.out.println("Registered");
         }catch(Exception e){
@@ -16,7 +16,60 @@ public class User {
         }
     }
 
+    public int getBalance(int userId) {
+    try {
+        File file = new File(file_path);
+        Scanner sc = new Scanner(file);
 
+        while (sc.hasNextLine()) {
+            String line = sc.nextLine();
+            String[] data = line.split(",");
+
+            // safety check
+            if (data.length < 6) continue;
+
+            if (Integer.parseInt(data[0]) == userId) {
+                sc.close();
+                return Integer.parseInt(data[5]);
+            }
+        }
+
+        sc.close();
+    } catch (Exception e) {
+        System.out.println("Error reading balance: " + e.getMessage());
+    }
+
+    return 0;
+}
+
+    public void updataBalance(int userId, int newBalance){
+        try{
+            File temp = new File("temp.csv");
+            FileWriter fw = new FileWriter(temp);
+
+            Scanner sc = new Scanner(new File(file_path));
+
+            while (sc.hasNextLine()){
+                String line = sc.nextLine();
+                String[] data = line.split(",");
+
+                if (Integer.parseInt(data[0]) == userId){
+                    data[5] = String.valueOf(newBalance);
+                    line = String.join(",",data);
+                }
+                fw.write(line + "\n");
+
+                
+            }
+            sc.close();
+            fw.close();
+            File f = new File(file_path);
+            f.delete();
+            temp.renameTo(new File("User.csv"));
+        }catch(IOException e){
+            System.out.println(e.getMessage());
+        }
+    }
 
     public int login(String email, String password) {
     try {
