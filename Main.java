@@ -130,14 +130,14 @@ public class Main {
                                 int amount = sc.nextInt();
 
                                 int current = user.getBalance(uid);
-                                user.updataBalance(uid, current + amount);
+                                user.updateBalance(uid, current + amount);
 
                                 System.out.println("Balance updated! New balance: " + (current + amount));
                                 break;
 
                             case 5: 
                                 System.out.println("Logging out...");
-                                return;
+                                break;
 
 
                             default:

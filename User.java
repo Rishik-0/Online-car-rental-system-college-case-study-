@@ -42,7 +42,7 @@ public class User {
     return 0;
 }
 
-    public void updataBalance(int userId, int newBalance){
+    public void updateBalance(int userId, int newBalance){
         try{
             File temp = new File("temp.csv");
             FileWriter fw = new FileWriter(temp);
@@ -116,7 +116,7 @@ public class User {
             File file = new File(file_path);
             Scanner read = new Scanner(file);
             while (read.hasNextLine()){
-                String[] d = read.nextLine().split("");
+                String[] d = read.nextLine().split(",");
                 last = Integer.parseInt(d[0]);
             }
             read.close();

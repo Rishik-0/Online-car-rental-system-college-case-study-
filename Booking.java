@@ -10,7 +10,7 @@ public class Booking {
             LocalDate reqStart = LocalDate.parse(start);
             LocalDate reqEnd = LocalDate.parse(end);
 
-            Scanner sc = new Scanner(new File("Car.csv"));
+            Scanner sc = new Scanner(new File(Car.file_path));
             boolean canBook = false;
             int pricePerKm = 0;
 
@@ -26,8 +26,8 @@ public class Booking {
                         LocalDate bookedStart = LocalDate.parse(d[5]);
                         LocalDate bookedEnd = LocalDate.parse(d[6]);
 
-                    if (reqEnd.isBefore(bookedStart) || reqStart.isAfter(bookedEnd)) {
-                        canBook = true;
+                        if (reqEnd.isBefore(bookedStart) || reqStart.isAfter(bookedEnd)) {
+                            canBook = true;
                     }
                     }
                 break;
@@ -55,7 +55,7 @@ public class Booking {
                     System.out.println("Oops, Insufficient balance!... please add balance to wallet.");
                     return;
                 }
-                u.updataBalance(userId, balance-totalCost);
+                u.updateBalance(userId, balance-totalCost);
                 new Car().updateStatus(carId, "booked", start, end);
                 System.out.println("Booking successful! Cost: " + totalCost);
             }else{
@@ -65,7 +65,7 @@ public class Booking {
             FileWriter fw = new FileWriter(file_path,true);
             int id = getLastId() + 1;
             fw.write(id + "," + userId + "," + carId + ",active\n");
-            fw.close();System.out.println("Booking successful! Cost: " + totalCost);
+            fw.close();
 
         }catch(IOException e){
             System.out.println("Booking failed: " + e.getMessage());

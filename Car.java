@@ -10,7 +10,7 @@ public class Car {
             File file = new File(file_path);
             Scanner read = new Scanner(file);
             while (read.hasNextLine()){
-                String[] d = read.nextLine().split("");
+                String[] d = read.nextLine().split(",");
                 last = Integer.parseInt(d[0]);
             }
             read.close();
@@ -51,14 +51,17 @@ public class Car {
                 if (d[4].equals("available")){
                     System.out.println(Arrays.toString(d));
                     continue;
+                }else{
+                    LocalDate bookedStart = LocalDate.parse(d[5]);
+                    LocalDate bookedEnd = LocalDate.parse(d[6]);
+
+                    if (End.isBefore(bookedStart)||Start.isAfter(bookedEnd)){
+                        System.out.println(Arrays.toString(d));
+                    }
+
                 }
 
-                LocalDate bookedStart = LocalDate.parse(d[5]);
-                LocalDate bookedEnd = LocalDate.parse(d[6]);
-
-                if (End.isBefore(bookedStart)||Start.isAfter(bookedEnd)){
-                    System.out.println(Arrays.toString(d));
-                }
+                
             
             }
             read.close();
@@ -73,7 +76,7 @@ public class Car {
             FileWriter fw = new FileWriter(temp);
             
 
-            Scanner sc = new Scanner(file_path);
+            Scanner sc = new Scanner(new File(file_path));
             while (sc.hasNextLine()){
                 String line = sc.nextLine();
                 String[] data = line.split(",");
@@ -98,7 +101,7 @@ public class Car {
 
             File f = new File(file_path);
             f.delete();
-            temp.renameTo(new File("Cars.csv"));
+            temp.renameTo(new File("Car.csv"));
 
 
         }catch(IOException e){
