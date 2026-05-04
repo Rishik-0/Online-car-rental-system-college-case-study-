@@ -71,13 +71,13 @@ public class User {
         }
     }
 
-    public int login(String email, String password) {
+    public int login(String name, String password) {
     try {
         File file = new File(file_path);
         Scanner sc = new Scanner(file);
         while (sc.hasNextLine()) {
             String[] d = sc.nextLine().split(",");
-            if (d[2].equals(email) && d[3].equals(password)) {
+            if (d[1].equals(name) && d[3].equals(password)) {
                 sc.close();
                 return Integer.parseInt(d[0]);
             }

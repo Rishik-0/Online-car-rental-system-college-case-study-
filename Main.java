@@ -12,7 +12,7 @@ public class Main {
             sc.nextLine();
 
             if (ch == 1){
-                System.out.print("Name: ");
+                System.out.print("Username: ");
                 String name = sc.nextLine();
                 System.out.print("Email: ");
                 String email = sc.nextLine();
@@ -39,12 +39,12 @@ public class Main {
             }
 
             else if (ch == 2){
-                System.out.print("Email: ");
-                String email = sc.nextLine();
+                System.out.print("username: ");
+                String username = sc.nextLine();
                 System.out.print("Password: ");
                 String pass = sc.nextLine();
 
-                int uid = user.login(email,pass);
+                int uid = user.login(username,pass);
 
                 if (uid == -1){
                     System.out.println("Invalid credentials!! please try again....");
@@ -88,7 +88,7 @@ public class Main {
                     while (true){
                         
                         System.out.println("\n|----  Services  ----|");
-                        System.out.println("[1] Book a car\n[2] Cancel Booking\n[3] View available cars\n[4] Add balance to wallet\n[5] Exit\nEnter: ");
+                        System.out.println("[1] Book a car\n[2] View All Bookings\n[3] Cancel Booking\n[4] View available cars\n[5] Add balance to wallet\n[6] Exit\nEnter: ");
                         int choice = sc.nextInt();
 
                         switch(choice){
@@ -111,17 +111,20 @@ public class Main {
                                 System.out.print("Enter KM: ");
                                 int km = sc.nextInt();
 
-                                b.bookCar(uid, carId, s, e, km);
+                                b.bookCar(uid,username, carId, s, e, km);
 
                                 break;
-
-                            case 2: 
+                            case 2:
+                                b.viewUserBookings(uid);
+                                break;
+                            case 3: 
+                                b.viewUserBookings(uid);
                                 System.out.print("Enter Booking ID: ");
                                 int bid = sc.nextInt();
                                 b.cancelBooking(bid);
                                 break;
 
-                            case 3:
+                            case 4:
                                 sc.nextLine();
                                 System.out.print("\nEnter journey start data in [yyyy-mm-dd] format: ");
                                 String start = sc.nextLine();
@@ -130,7 +133,7 @@ public class Main {
                                 car.viewAvailableCars(start, end);
                                 break;
 
-                            case 4: 
+                            case 5: 
                                 System.out.print("Enter amount to add: ");
                                 int amount = sc.nextInt();
 
@@ -140,7 +143,7 @@ public class Main {
                                 System.out.println("Balance updated! New balance: " + (current + amount));
                                 break;
 
-                            case 5: 
+                            case 6: 
                                 System.out.println("Logging out...");
                                 break;
 

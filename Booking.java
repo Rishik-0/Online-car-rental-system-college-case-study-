@@ -5,7 +5,7 @@ import java.util.*;
 public class Booking {
     static String file_path = "booking.csv";
     
-    public void bookCar(int userId, int carId,String start,String end,int km){
+    public void bookCar(int userId,String name, int carId,String start,String end,int km){
         try{
             LocalDate reqStart = LocalDate.parse(start);
             LocalDate reqEnd = LocalDate.parse(end);
@@ -64,7 +64,8 @@ public class Booking {
             
             FileWriter fw = new FileWriter(file_path,true);
             int id = getLastId() + 1;
-            fw.write(id + "," + userId + "," + carId + ",active," + start + "," + end + "\n");
+            System.out.println(id + "," + userId + "," +name+","+ carId + ",active," + start + "," + end + "\n");
+            fw.write(id + "," + userId + "," + carId + ","+name+",active," + start + "," + end + "\n");
             fw.close();
 
         }catch(IOException e){
@@ -161,5 +162,61 @@ public class Booking {
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
         }
-}
+    }
+    public void viewUserBookings(int userId){
+        try{
+            File file = new File(file_path);
+
+            if (!file.exists()){
+                System.out.println("No bookings found.");
+                return;
+            }
+
+            Scanner sc = new Scanner(file);
+
+            System.out.println("\nYour Bookings:");
+            System.out.printf("%-5s %-7s %-7s %-15s %-10s %-12s %-12s\n",
+                "BID", "UID", "CID", "Name", "Status", "Start", "End");
+            System.out.println("--------------------------------------------------------------------------");
+
+            boolean found = false;
+
+            while (sc.hasNextLine()){
+                String line = sc.nextLine();
+                if (line.isEmpty()) continue;
+
+                String[] data = line.split(",");
+
+                if (Integer.parseInt(data[1]) == userId){
+                    System.out.printf("%-5s %-7s %-7s %-15.15s %-10s %-12s %-12s\n",
+                    data[0], // id
+                    data[1], // userId
+                    data[2], // carId
+                    data[3], // name
+                    data[4], // status
+                    data[5], // start
+                    data[6]  // end
+                            );
+                found = true;
+                    // System.out.println(
+                    //     data[0] + " | " + 
+                    //     data[2] + " | " + 
+                    //     data[3] + " | " +
+                    //     data[4] + " | " + 
+                    //     data[5]
+                    // );
+
+                    // found = true;
+                }
+            }
+            sc.close();
+
+            if (!found){
+                System.out.println("No bookings for this user.");
+            }}
+            catch(Exception e ){
+                System.out.println("Error:" + e.getMessage());
+            }
+        }
+    
 }   
