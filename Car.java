@@ -34,7 +34,7 @@ public class Car {
     }
     }
 
-    public void viewAvailableCars(String start, String end){
+    public boolean viewAvailableCars(String start, String end){
         try{
             LocalDate Start = LocalDate.parse(start);
             LocalDate End = LocalDate.parse(end);
@@ -60,14 +60,13 @@ public class Car {
                     }
 
                 }
-
-                
-            
             }
             read.close();
         }catch(Exception e){
             System.out.println("please enter the date in the following format yyyy-mm-dd also make sure the date exist\nplease try again....");
+            return false;
         }
+        return true;
     }
 
     public void updateStatus(int carId,String status, String start, String end){

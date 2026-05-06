@@ -104,7 +104,10 @@ public class CarRentalSystem {
                                 String e = sc.nextLine();
 
                                 System.out.println("\nAvailable Cars:");
-                                car.viewAvailableCars(s, e);
+                                boolean error = car.viewAvailableCars(s, e);
+                                if (!error){
+                                    break;
+                                }
 
                                 System.out.print("\nEnter Car ID: ");
                                 int carId = sc.nextInt();
