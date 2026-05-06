@@ -66,7 +66,7 @@ public class Car {
             }
             read.close();
         }catch(Exception e){
-            System.out.println(e);
+            System.out.println("please enter the date in the following format yyyy-mm-dd also make sure the date exist\nplease try again....");
         }
     }
 
@@ -105,7 +105,7 @@ public class Car {
 
 
         }catch(IOException e){
-            System.out.println(e.getMessage());
+            System.out.println(e.getMessage()+ "failed to update status");
             
         }
     }

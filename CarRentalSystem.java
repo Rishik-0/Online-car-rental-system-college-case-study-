@@ -1,5 +1,5 @@
 import java.util.*;
-public class Main {
+public class CarRentalSystem {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         User user = new User();
@@ -84,8 +84,9 @@ public class Main {
                 }
                 // CUSTOMER
                 else{
+                    boolean loop = true;
                     System.out.print("Welcome back..." );
-                    while (true){
+                    while (loop){
                         
                         System.out.println("\n|----  Services  ----|");
                         System.out.println("[1] Book a car\n[2] View All Bookings\n[3] Cancel Booking\n[4] View available cars\n[5] Add balance to wallet\n[6] Exit\nEnter: ");
@@ -145,12 +146,12 @@ public class Main {
 
                             case 6: 
                                 System.out.println("Logging out...");
+                                loop= false;
                                 break;
-
-
                             default:
                                 System.out.println("Invalid choice!");
                             }
+                            
                         }
 
 
